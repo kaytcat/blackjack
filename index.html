@@ -40,20 +40,19 @@ function cardValue(card) {
   return card;
 }
 
+var specialCards = {
+  1: "Ace",
+  11: "Jack",
+  12: "Queen",
+  13: "King",
+};
+
 function cardName(card) {
-  if(card == 1)
-  return "Ace";
+  if (card in specialCards) {
+    card = specialCards[card];
+  }
 
-  if(card == 11)
-  return "Jack";
-
-  if(card == 12)
-  return "Queen";
-
-  if(card == 13)
-  return "King";
-
-  return "" + card;
+  return card;
 }
 
 
@@ -88,22 +87,23 @@ function dealer() {
 
 var hitCount = 0;
 var cardCount = [];
-
+var cardTotal = 0;
+var i=0;
 function user() {
   hitCount++;
-  var cardTotal = 0;
 
-  while (cardTotal < 21) {
+  if (cardTotal < 21) {
     var userHand = pickaCard("user");
     cardCount.push(userHand);
     len = cardCount.length;
-    console.log("array count= " + cardCount)
-    for (var i=0; i < len; i++) {
-    console.log("array length=" + cardCount.length);
-    console.log("cardtotal=" + cardTotal);
-    console.log("cardcount array piece=" + cardCount[i]);
-    cardTotal = cardTotal + cardCount[i];
-    console.log(cardTotal);
+    console.log("array content = " + cardCount)
+
+    for (; i < len; i++) {
+      console.log("array length=" + cardCount.length);
+      console.log("cardtotal at beginning of loop=" + cardTotal);
+      console.log("Which part of array its on=" + cardCount[i]);
+      cardTotal = cardTotal + cardCount[i];
+      console.log("cardtotal at the end of loop= " + cardTotal);
     }
   }
 
