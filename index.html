@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blackjack</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Try your luck!</h1>
+    <button onclick="user()" id="button">Hit</button>
+    <button onclick="dealer()" id="buttonStand">Stand</button>
+    <button onclick="" id="buttonNew">New Hand</button>
+    <div class="draw-result" id="draw-data"></div>
+    <div class="draw-result2" id="draw-data2"></div>
+  </div>
+
+
+<script type="text/javascript">
+
+function pickSuit() {
+  var suit = Math.floor((Math.random()*4)+1);
+  if(suit == 1)
+ return "Spades";
+
+ if(suit == 2)
+ return "Clubs";
+
+ if(suit == 3)
+ return "Diamonds";
+
+ return "Hearts";
+}
+
+function cardValue(card) {
+  if(card == 1)
+  return 11;
+
+  if(card > 10)
+  return 10;
+
+  return card;
+}
+
+function cardName(card) {
+  if(card == 1)
+  return "Ace";
+
+  if(card == 11)
+  return "Jack";
+
+  if(card == 12)
+  return "Queen";
+
+  if(card == 13)
+  return "King";
+
+  return "" + card;
+}
+
+
+
+function pickaCard(who) {
+  var card = Math.floor((Math.random()*13)+1);
+  // var suit = pickSuit();
+
+  return card;
+
+//   document.getElementById("draw-data").innerHTML = who + " picked the " + cardName(card) + " of " + suit;
+//
+}
+
+
+function dealer() {
+  var dealerHand = pickaCard("dealer");
+  if (dealerHand < 17) {
+    var dealerHand2 = pickaCard("dealer");
+  }
+    var total = dealerHand + dealerHand2;
+  if(total <= 21) {
+    var dealerHand3 = pickaCard("dealer");
+    var total = dealerHand + dealerHand2 + dealerHand3;
+    document.getElementById("draw-data").innerHTML =  "The dealer picked " + dealerHand + ", " + dealerHand2 + ", " + dealerHand3 + " which equals " + total;
+  } else {
+    document.getElementById("draw-data").innerHTML =  "The dealer picked " + dealerHand + ", " + dealerHand2 + " which equals " + total;
+  }
+}
+
+
+
+var hitCount = 0;
+var cardCount = [];
+
+function user() {
+  hitCount++;
+  var cardTotal = 0;
+
+  while (cardTotal < 21) {
+    var userHand = pickaCard("user");
+    cardCount.push(userHand);
+    len = cardCount.length;
+    console.log("array count= " + cardCount)
+    for (var i=0; i < len; i++) {
+    console.log("array length=" + cardCount.length);
+    console.log("cardtotal=" + cardTotal);
+    console.log("cardcount array piece=" + cardCount[i]);
+    cardTotal = cardTotal + cardCount[i];
+    console.log(cardTotal);
+    }
+  }
+
+
+
+
+
+  // document.getElementById("draw-data2").innerHTML = userHand;
+  // if (hitCount >= 1) {
+  //   function user() {
+  //     var userHand2 = pickaCard("user");
+  //     console.log(userHand);
+  //     console.log(userHand2);
+  //     document.getElementById("draw-data2").innerHTML = userHand + " " + userHand2;
+  //   }
+  // }
+  console.log(cardCount);
+}
+
+
+
+function userDisplay() {
+
+}
+
+
+function lookatHands() {
+  if (dealerHand > 21) {
+    alert("House busts! You win!");
+  } else if (userHand > dealerHand) {
+    alert("You win!");
+  } else if (userHand == dealerHand) {
+    alert("Push!");
+  } else {
+    alert("House wins!");
+  }
+}
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
