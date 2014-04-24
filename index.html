@@ -43,8 +43,8 @@ button:focus {
   margin-top: 50px;
 }
 
-.result-cont,
-.result-cont div {
+
+.draw-result2 {
   display: inline-block;
 }
 
@@ -71,8 +71,9 @@ button:focus {
   vertical-align: top;
 }
 
-
-
+.cards {
+  width: 80px;
+}
 
 
 </style>
@@ -87,7 +88,10 @@ button:focus {
       <a href=""><button id="buttonNew">New Hand</button></a>
     </div>
     <div class="result-cont">
-      <div class="draw-result1" id="draw-data1"></div>
+      <div class="draw-result1" id="draw-data1">
+
+      </div>
+
       <div class="draw-result2" id="draw-data2"></div>
     </div>
   </div>
@@ -147,14 +151,18 @@ function pickaCard() {
 
 
 function showCard(value) {
-  if (value == cardStorageUser[u]) {
+  if (value == cardStorageUser[u] || value == cardStorageUser[1] || value == cardStorageUser[3] || cardStorageUser[4]) {
     console.log("cardstorageu=" + cardStorageUser[u]);
-    var csu = cardStorageUser[u];
-    console.log("var csu=" + csu);
-    console.log("whatiscardname damit" + cardName(csu));
+    var csu = value;
+    console.log("value=" + csu);
+    console.log("array=" + cardStorageUser);
     var cardNames = cardName(csu);
-    console.log("cardname=" + cardNames);
+    console.log("cardname=" + value);
+    newtest.push(cardNames);
+   console.log("what is new array" + newtest);
+   console.log("new test0" + newtest[0])
   }
+
   return cardNames;
   //   var csu = cardStorageUser[u];
   //   var cardName = showCard(csu);
@@ -166,6 +174,8 @@ function showCard(value) {
   // }
   // console.log("cardStorageDealer[u]")
 }
+
+var newtest = [];
 var ssuit = 0;
 var csu = 0;
 var cardStorageUser = [];
@@ -178,6 +188,26 @@ var i = 0;
 var u = 0;
 var c = 0;
 var run = 1;
+
+
+  var pics =
+    {
+      AceHearts: 'Hearts/AH.svg',
+      AceClubs: 'Clubs/AC.svg',
+      AceSpades: 'Spades/AS.svg',
+      '2Hearts' : 'Hearts/2H.svg',
+      '3Hearts' : 'Hearts/3H.svg',
+      '4Hearts' : 'Hearts/4H.svg',
+      '5Hearts' : 'Hearts/5H.svg',
+      '6Hearts' : 'Hearts/6H.svg',
+      '7Hearts' : 'Hearts/7H.svg',
+      '8Hearts' : 'Hearts/8H.svg',
+      '9Hearts' : 'Hearts/9H.svg',
+      JackHearts: 'Hearts/JH.svg',
+      QueenHearts: 'Hearts/QH.svg',
+      KingHearts: 'Hearts/KH.svg',
+
+    }
 
 
 function getCards() {
@@ -193,16 +223,16 @@ function getCards() {
 
     if (c == 1) {
       document.getElementById("dealer").innerHTML = cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
-      if (run == 1) {document.getElementById("draw-data1").innerHTML = showCard(cardStorageUser[u]) + "<br/>(Total=" + totalUser() + ")";};
+      if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" +pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     } else if (c == 2) {
       document.getElementById("dealer").innerHTML = cardStorageDealer[0] +  ", " +cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
-      if (run == 1) {document.getElementById("draw-data1").innerHTML = cardStorageUser[0] + ", " + cardStorageUser[u] + "<br/>(Total=" + totalUser() + ")";};
+      if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" + pics[newtest[0]] + "' /><img class='cards' src='" + pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     } else if (c == 3) {
       document.getElementById("dealer").innerHTML = cardStorageDealer[1] + ", " +cardStorageDealer[0] +  ", " +cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
-      if (run == 1) {document.getElementById("draw-data1").innerHTML = cardStorageUser[1] + ", " + cardStorageUser[0] + ", " + cardStorageUser[u] + "<br/>(Total=" + totalUser() + ")";};
+      if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" + pics[newtest[0]] + "' /><img class='cards' src='" + pics[newtest[1]] + "' /><img class='cards' src='" + pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     } else if (c == 4) {
-      document.getElementById("dealer").innerHTML = cardStorageDealer[2] + ", " +cardStorageDealer[1] + ", " +cardStorageDealer[0] +  ", " +cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
-      if (run == 1) {document.getElementById("draw-data1").innerHTML = cardStorageUser[2] + ", " + cardStorageUser[1] + ", " + cardStorageUser[0] + ", " + cardStorageUser[u] + "<br/>(Total=" + totalUser() + ")";};
+      document.getElementById("dealer").innerHTML = cardStorageDealer[2] + ", " + cardStorageDealer[1] + ", " + cardStorageDealer[0] +  ", " +cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
+      if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" + pics[newtest[0]] + "' /><img class='cards' src='" + pics[newtest[1]] + "' /><img class='cards' src='" + pics[newtest[2]] + "' /><img class'cards' srd='" + pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     }
   }
     if ( c == 4 || totalDealer() > 21 || totalUser() >= 21) {
