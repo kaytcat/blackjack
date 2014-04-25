@@ -2,25 +2,62 @@
 <html>
 <head>
   <title>Blackjack</title>
+  <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
 
 <style type="text/css">
 
-html, body, h1 {
+body {
+  background-color: rgb(79, 155, 79);
+}
+
+html, body, h1, h2 {
   padding: 0;
   margin: 0;
-  font-family: helvetica, arial, sans-serif;
+  font-family: 'Source Sans Pro', 'helvetica'; sans-serif;
+  color: #fff;
+  font-size: 16px;
 }
 
 h1 {
-  padding: 10px;
   font-weight: 100;
+  font-size: 18px;
+}
+
+h1 span {
+  font-family: "Righteous";
+  font-size: 50px;
+  color: rgb(4, 44, 4);
+}
+
+.header {
+  margin: 20px;
+  width: 320px;
+  margin: 0 auto;
+  padding: 30px;
+  border-bottom: 1px solid rgb(140, 184, 138);
+}
+
+.button-group {
+  margin-top: 10px;
 }
 
 button {
   margin: 10px;
   width: 100px;
   height: 30px;
-  font-family: helvetica, arial, sans-serif;
+  background-color: #fff;
+  border: 0;
+  border-radius: 3px;
+  font-family: 'Source Sans Pro', helvetica, sans-serif;
+  font-size: 14px;
+}
+
+h2 {
+  margin: 0;
+  font-weight: lighter;
+  font-size: 30px;
 }
 
 .button-click,
@@ -41,6 +78,54 @@ button:focus {
 .container {
   text-align: center;
   margin-top: 50px;
+}
+
+.card-section {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.user-section,
+.dealer-section {
+  float: left;
+  position: relative;
+}
+
+.user-section img,
+.dealer-section img {
+  position: absolute;
+}
+
+.user-section img:first-child,
+.dealer-section img:first-child {
+  left: 34px;
+  transform:rotate(-20deg);
+  -ms-transform:rotate(-20deg); /* IE 9 */
+  -webkit-transform:rotate(-20deg); /* Opera, Chrome, and Safari */
+}
+
+.user-section img:nth-child(2),
+.dealer-section img:nth-child(2) {
+  left: 54px;
+  transform:rotate(-3deg);
+  -ms-transform:rotate(-3deg); /* IE 9 */
+  -webkit-transform:rotate(-3deg); /* Opera, Chrome, and Safari */
+}
+
+.user-section img:nth-child(3),
+.dealer-section img:nth-child(3) {
+  left: 84px;
+  transform:rotate(7deg);
+  -ms-transform:rotate(7deg); /* IE 9 */
+  -webkit-transform:rotate(7deg); /* Opera, Chrome, and Safari */
+}
+
+.user-section img:nth-child(4),
+.dealer-section img:nth-child(4) {
+  left: 84px;
+  transform:rotate(7deg);
+  -ms-transform:rotate(7deg); /* IE 9 */
+  -webkit-transform:rotate(7deg); /* Opera, Chrome, and Safari */
 }
 
 
@@ -71,7 +156,8 @@ button:focus {
   vertical-align: top;
 }
 
-.cards {
+.cards,
+.cards-dealer {
   width: 80px;
 }
 
@@ -80,20 +166,33 @@ button:focus {
 </head>
 <body>
   <div class="container">
-    <div class="button-cont">
-      <h1>Try your luck!</h1>
-       <div class="dealer"><span>Dealer: </span><div id="dealer"></div></div>
+    <div class="header">
+      <h1>Kaitlin's<br /> <span>Blackjack</span></h1>
+      <h2>"Try Your Luck!"</h2>
+    </div>
+    <div class="button-group">
       <button onclick="getCards()" id="button">Hit</button>
       <button onclick="holdCards()" id="buttonStand">Stand</button>
       <a href=""><button id="buttonNew">New Hand</button></a>
     </div>
-    <div class="result-cont">
-      <div class="draw-result1" id="draw-data1">
 
+    <div class="post" id="post"></div>
+
+    <div class="card-section">
+      <div class="user-section">
+        <h3>Your Hand</h3>
+        <div class="total" id="total"></div>
+        <div class="result-cont">
+          <div class="draw-result1" id="draw-data1"></div>
+          <div class="draw-result2" id="draw-data2"></div>
+        </div>
+      </div>
+      <div class="dealer-section">
+        <div class="totald" id=""></div>
+        <h3>Dealers Hand</h3>
+        <div class="dealer"><div id="dealer"></div></div>
       </div>
 
-      <div class="draw-result2" id="draw-data2"></div>
-    </div>
   </div>
 
 
@@ -136,7 +235,6 @@ function cardName(card) {
   }
   card = card.toString();
   var ssuit = pickSuit();
-  console.log("shouldbe string=" + card)
   var end = card + ssuit
   return end;
 }
@@ -145,36 +243,35 @@ function cardName(card) {
 
 function pickaCard() {
   var card = Math.floor((Math.random()*13)+1);
-  // var suit = pickSuit();
   return card;
 }
 
 
 function showCard(value) {
   if (value == cardStorageUser[u] || value == cardStorageUser[1] || value == cardStorageUser[3] || cardStorageUser[4]) {
-    console.log("cardstorageu=" + cardStorageUser[u]);
+    var csu = value;
+    var cardNames = cardName(csu);
+    newtest.push(cardNames);
+  }
+  return cardNames;
+}
+
+function showCardD(value) {
+  if (value == cardStorageDealer[i] || value == cardStorageDealer[1] || value == cardStorageDealer[3] || cardStorageDealer[4]) {
+    console.log("cardstoraged=" + cardStorageUser[i]);
     var csu = value;
     console.log("value=" + csu);
     console.log("array=" + cardStorageUser);
     var cardNames = cardName(csu);
     console.log("cardname=" + value);
-    newtest.push(cardNames);
-   console.log("what is new array" + newtest);
-   console.log("new test0" + newtest[0])
+    cardTypeD.push(cardNames);
+   console.log("what is new array" + cardTypeD);
+   console.log("new test0" + cardTypeD[0])
   }
-
   return cardNames;
-  //   var csu = cardStorageUser[u];
-  //   var cardName = showCard(csu);
-  //   var csu = cardName;
-  // } else if (value == cardStorageDealer[i]) {
-  //   var csd = cardStorageDealer[i];
-  //   var cardName = showCard(csd);
-  //   var csd = cardName;
-  // }
-  // console.log("cardStorageDealer[u]")
 }
 
+var cardTypeD = [];
 var newtest = [];
 var ssuit = 0;
 var csu = 0;
@@ -252,30 +349,33 @@ function getCards() {
 
   if (c < 4) {
     c = c + 1;
-    console.log("varc=" + c);
+
     var cardDealer = pickaCard();
     var cardUser = pickaCard();
 
     cardStorageDealer.push(cardDealer);
     cardStorageUser.push(cardUser);
 
+
+
     if (c == 1) {
-      document.getElementById("dealer").innerHTML = cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
+      document.getElementById("dealer").innerHTML = "<img class='cards-dealer' src='" + pics[showCardD(cardStorageDealer[i])] + "' /><br/>(Total=" + totalDealer() + ")";
       if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" +pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     } else if (c == 2) {
-      document.getElementById("dealer").innerHTML = cardStorageDealer[0] +  ", " +cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
+      document.getElementById("dealer").innerHTML = "<img class='cards-dealer' src='" + pics[cardTypeD[0]] + "' /><img class='cards-dealer' src='" + pics[showCardD(cardStorageDealer[i])] + "' /><br/>(Total=" + totalDealer() + ")";
       if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" + pics[newtest[0]] + "' /><img class='cards' src='" + pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     } else if (c == 3) {
-      document.getElementById("dealer").innerHTML = cardStorageDealer[1] + ", " +cardStorageDealer[0] +  ", " +cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
+      document.getElementById("dealer").innerHTML = "<img class='cards-dealer' src='" + pics[cardTypeD[1]] + "' /><img class='cards-dealer' src='" + pics[cardTypeD[0]] + "' /><img class='cards-dealer' src='" + pics[showCardD(cardStorageDealer[i])] + "' /><br/>(Total=" + totalDealer() + ")";
       if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" + pics[newtest[0]] + "' /><img class='cards' src='" + pics[newtest[1]] + "' /><img class='cards' src='" + pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     } else if (c == 4) {
-      document.getElementById("dealer").innerHTML = cardStorageDealer[2] + ", " + cardStorageDealer[1] + ", " + cardStorageDealer[0] +  ", " +cardStorageDealer[i] + "<br/>(Total=" + totalDealer() + ")";
+      document.getElementById("dealer").innerHTML = "<img class='cards-dealer' src='" + pics[cardTypeD[2]] + "' /><img class='cards-dealer' src='" +  pics[cardTypeD[1]] + "' /><img class='cards-dealer' src='"  + pics[cardTypeD[0]] +  "' /><img class='cards-dealer' src='" + pics[showCardD(cardStorageDealer[i])] + "' /><br/>(Total=" + totalDealer() + ")";
       if (run == 1) {document.getElementById("draw-data1").innerHTML = "<img class='cards' src='" + pics[newtest[0]] + "' /><img class='cards' src='" + pics[newtest[1]] + "' /><img class='cards' src='" + pics[newtest[2]] + "' /><img class'cards' srd='" + pics[showCard(cardStorageUser[u])] + "' /><br/>(Total=" + totalUser() + ")";};
     }
   }
     if ( c == 4 || totalDealer() > 21 || totalUser() >= 21) {
       lookatHands();
     }
+    console.log(pics[showCardD("cardstoragedealer=" + cardStorageDealer[i])]);
   }
 
 function totalDealer() {
